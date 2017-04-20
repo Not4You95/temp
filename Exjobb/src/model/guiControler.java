@@ -6,6 +6,8 @@
 package model;
 
 import exjobb.GUI;
+import java.util.ArrayList;
+import model.*;
 
 /**
  *
@@ -13,17 +15,30 @@ import exjobb.GUI;
  */
 public class guiControler {
     private GUI gui;
+    private GUImodel model;
     
     public guiControler(GUI GUICLASS){
-        gui = GUICLASS;             
+        gui = GUICLASS; 
+        model = new GUImodel();
+        model.test();
+        
         
     }
     
     public void SetGroup(){
         
         
+        
     }
     
-    
+    public void UppdateScreen(){
+        ArrayList<String> temp = new ArrayList<String>();
+        temp.add("Gotland");
+        temp.add("Östersjön");
+        temp.add("Öland");
+        
+        gui.OrgMenu(temp);
+    }
+   
     
 }

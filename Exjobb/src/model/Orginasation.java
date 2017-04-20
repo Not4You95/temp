@@ -61,8 +61,8 @@ public class Orginasation {
      */
     public void setPriotetForAllTSN(String priotetForAllTSN) {
         this.priotetForAllTSN = priotetForAllTSN;
-        for (int i = 0; i < Tasks.size(); i++) {
-            Tasks.get(i).SetpriorityForAllTSN(priotetForAllTSN);
+        for (int i = 0; i < getTasks().size(); i++) {
+            getTasks().get(i).SetpriorityForAllTSN(priotetForAllTSN);
         }
     }
 
@@ -92,6 +92,22 @@ public class Orginasation {
      */
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    /**
+     * @return the Tasks
+     */
+    public ArrayList<Task> getTasks() {
+        ArrayList<Task> temp = new ArrayList<Task>();
+        temp.addAll(Tasks);
+        return temp;
+    }
+
+    /**
+     * @param Tasks the Tasks to set
+     */
+    public void setTasks(ArrayList<Task> Tasks) {
+        this.Tasks.addAll(Tasks);
     }
     
 }

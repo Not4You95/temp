@@ -41,7 +41,7 @@ public class Task {
      * @param noder the noder to set
      */
     public void setNoder(ArrayList<TSN> noder) {
-        this.noder = noder;
+        this.noder.addAll(noder);
     }
 
     /**
