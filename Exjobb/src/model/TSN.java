@@ -16,6 +16,7 @@ public class TSN {
 private String name;
 private ArrayList<Interface> ListOfInterface;
 
+
 /**
  * Constructur
  * @param name 
@@ -46,5 +47,14 @@ public TSN(){
      */
     public void setName(String name) {
         this.name = name;
+    }
+    public void SetPriorityForAllInterface(String priority){
+        for (int i = 0; i < ListOfInterface.size(); i++) {
+            ListOfInterface.get(i).SetPriority(priority);
+        }
+    }
+    
+    public void SetPriorityForSpecialInterface(){
+        
     }
 }

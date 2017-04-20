@@ -120,15 +120,34 @@ public class GUI extends Application {
     private void test(){
           ArrayList<TSN> temp = new ArrayList<TSN>();
         ArrayList<Orginasation> orgList = new ArrayList<Orginasation>();
+        ArrayList<Task> task = new ArrayList<Task>();
         Orginasation org = new Orginasation();
-        TSN one = new TSN("Plain");
-        TSN two = new TSN("Test");
-        System.out.println(one.getName());
+        TSN one = new TSN("UAV ISR Global");
+        TSN two = new TSN("Datafusion M");
+        TSN three = new TSN("Datafusion S");
+        TSN FOUR = new TSN("Troups");
+        TSN five = new TSN("Military Hospital");
+        TSN six = new TSN("BMS/Soldier");
+        TSN seven = new TSN("Deployed c2");
+        TSN eight = new TSN("UAV Local");
+        //System.out.println(one.getName());
         System.out.println("-----------------------------------------------");
+        ///////////////////////////////////////////////////////////////////////
+        
         temp.add(one);
         temp.add(two);
-        org.setNoder(temp);        
-        System.out.println(org.getNoder().get(0).getName());
+        temp.add(three);
+        temp.add(FOUR);
+        temp.add(five);
+        temp.add(six);
+        temp.add(seven);
+        temp.add(eight);
+        org.setName("Gotland");
+        ///////////////////////////////////////////////////////////////////////
+             
+        for (int i = 0; i < temp.size(); i++) {
+            System.out.println(org.getNoder().get(i).getName());            
+        }
         
     }
     

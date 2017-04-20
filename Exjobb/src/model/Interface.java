@@ -10,5 +10,14 @@ package model;
  * @author jonas
  */
 public class Interface {
+    private String Priority;
+    public Interface (){
+    
+    
+}
+    public void SetPriority(String Priority){
+        this.Priority = Priority;
+    }
+    
     
 }

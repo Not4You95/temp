@@ -16,19 +16,21 @@ public class Orginasation {
     private String info;
     private String priotetForAllTSN;
     private String QualityForAllTSN;
-    private ArrayList<TSN> noder;
+    private ArrayList<Task> Tasks;
+   
     
     public Orginasation (String InputName, String Inputinfo){
         this.name = InputName;
         this.info = Inputinfo;
-        noder = new ArrayList<TSN>();
+        Tasks = new ArrayList<Task>();
+       
         
     }
     
     public Orginasation(){
         this.name = null;
         this.info = null;
-        noder = new ArrayList<TSN>();
+        Tasks = new ArrayList<Task>();
     }
 
     /**
@@ -45,22 +47,7 @@ public class Orginasation {
     public String getInfo() {
         return info;
     }
-
-    /**
-     * @return the noder
-     */
-    public ArrayList<TSN> getNoder() {
-        ArrayList<TSN> temp = new ArrayList<TSN>();
-        temp.addAll(noder);       
-        return temp;
-    }
-
-    /**
-     * @param noder the noder to set
-     */
-    public void setNoder(ArrayList<TSN> noder) {
-        this.noder.addAll(noder);
-    }
+ 
 
     /**
      * @return the priotetForAllTSN
@@ -74,7 +61,9 @@ public class Orginasation {
      */
     public void setPriotetForAllTSN(String priotetForAllTSN) {
         this.priotetForAllTSN = priotetForAllTSN;
-        
+        for (int i = 0; i < Tasks.size(); i++) {
+            Tasks.get(i).SetpriorityForAllTSN(priotetForAllTSN);
+        }
     }
 
     /**
@@ -89,6 +78,20 @@ public class Orginasation {
      */
     public void setQualityForAllTSN(String QualityForAllTSN) {
         this.QualityForAllTSN = QualityForAllTSN;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param info the info to set
+     */
+    public void setInfo(String info) {
+        this.info = info;
     }
     
 }
