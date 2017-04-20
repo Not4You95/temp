@@ -32,12 +32,10 @@ public class guiControler {
     }
     
     public void UppdateScreen(){
-        ArrayList<String> temp = new ArrayList<String>();
-        temp.add("Gotland");
-        temp.add("Östersjön");
-        temp.add("Öland");
-        
-        gui.OrgMenu(temp);
+        ArrayList<String> temp = new ArrayList<String>();      
+        gui.OrgMenu(model.GetOrgNames());
+        gui.TaskMenu();
+        gui.InterfaceMenu();
     }
    
     

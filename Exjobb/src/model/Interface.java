@@ -11,13 +11,94 @@ package model;
  */
 public class Interface {
     private String Priority;
+    private String Quality;
+    private boolean Pruducer;
+    private boolean Consumer;
+    private String Name;
+    
+    
+            
     public Interface (){
     
     
 }
+    public Interface(String name){
+        this.Name = name;
+    }
     public void SetPriority(String Priority){
+        this.setPriority(Priority);
+    }
+
+    /**
+     * @return the Priority
+     */
+    public String getPriority() {
+        return Priority;
+    }
+
+    /**
+     * @param Priority the Priority to set
+     */
+    public void setPriority(String Priority) {
         this.Priority = Priority;
     }
+
+    /**
+     * @return the Quality
+     */
+    public String getQuality() {
+        return Quality;
+    }
+
+    /**
+     * @param Quality the Quality to set
+     */
+    public void setQuality(String Quality) {
+        this.Quality = Quality;
+    }
+
+    /**
+     * @return the Pruducer
+     */
+    public boolean isPruducer() {
+        return Pruducer;
+    }
+
+    /**
+     * @param Pruducer the Pruducer to set
+     */
+    public void setPruducer(boolean Pruducer) {
+        this.Pruducer = Pruducer;
+    }
+
+    /**
+     * @return the Consumer
+     */
+    public boolean isConsumer() {
+        return Consumer;
+    }
+
+    /**
+     * @param Consumer the Consumer to set
+     */
+    public void setConsumer(boolean Consumer) {
+        this.Consumer = Consumer;
+    }
+
+    /**
+     * @return the Name
+     */
+    public String getName() {
+        return Name;
+    }
+
+    /**
+     * @param Name the Name to set
+     */
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
     
     
 }

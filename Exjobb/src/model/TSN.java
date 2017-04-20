@@ -57,4 +57,10 @@ public TSN(){
     public void SetPriorityForSpecialInterface(){
         
     }
+    public void addInterfaceArray(ArrayList<Interface> tempInterface){
+        ListOfInterface.addAll(tempInterface);
+    }
+    public void addInterface(Interface tempinterface){
+        ListOfInterface.add(tempinterface);        
+    }
 }

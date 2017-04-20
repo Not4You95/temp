@@ -7,6 +7,7 @@ package exjobb;
 
 import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,9 +15,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,9 +35,9 @@ public class GUI extends Application {
    private BorderPane root;
    private GridPane  border;
    private Button redButton;
-   private MenuItem SetGroupOrg,ShowOrg;
+   private MenuItem SetGroupOrg,SetPrioritForAllTask,SetQualityForAllTask,SetQualityForOneTask,SetPriorityForOneTask;
    private guiControler Contolloer;
-   private Menu menu1,TaskMenu;
+   private Menu SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu;
    private ChoiceBox <String> choiceBox;
    private HBox TopLine;
     @Override   
@@ -50,35 +53,35 @@ public class GUI extends Application {
         Contolloer.UppdateScreen();
         
         ///////////////////////////////////////////////////////////////////////
-        btn.setText("Say 'Hello World'");
-        redButton.setText("Say 'Hello World'");
         
-        redButton.addEventHandler(ActionEvent.ACTION, new colorButton());
+        
            
         /////////////////////Menu ////////////////////////////////////////
-       Menu1();
-        
+       
+        Label Orginations = new Label("Org:");
         ///////////////////////Task Menu///////////////////////////////////////////
-        Menu OrgMenu = new Menu("Organasations");
-        ShowOrg = new MenuItem();
+       
+        
+       
+        
+        
+        
+        /*root.setStyle("-fx-background-color: linear-gradient(to bottom," +
+                    " black 60, #141414 60.1%, black 100%);");*/
         
         
         MenuBar menulist = new MenuBar();
-        menulist.getMenus().addAll(menu1,OrgMenu);
-        
-        
-        
-        root.setStyle("-fx-background-color: linear-gradient(to bottom," +
-                    " black 60, #141414 60.1%, black 100%);");
-        
-       
+        menulist.getMenus().addAll(SetTaskmMenu,SetInterfacemMenu);
         /////////////////////////////////////////////////////////////
-        TopLine.setAlignment(Pos.CENTER);
+        TopLine.setAlignment(Pos.CENTER_LEFT);
         TopLine.setSpacing(20);
-        TopLine.getChildren().add(choiceBox);
+        
+        TopLine.getChildren().addAll(Orginations,choiceBox,menulist);
+       //TopLine.getChildren().add(menulist);
+        
+       // root.setTop(TopLine);
         root.setTop(TopLine);
-        root.setCenter(redButton);
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 700, 300);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
@@ -86,59 +89,73 @@ public class GUI extends Application {
     
     }
 
-private void Menu1(){
-        menu1 = new Menu("File");
-        SetGroupOrg = new MenuItem("SetGroup");
-        SetGroupOrg.addEventHandler(ActionEvent.ACTION, new menu1Choise());        
-        menu1.getItems().addAll(SetGroupOrg);
+public void TaskMenu(){
+    SetTaskmMenu = new Menu("_Task");
+    SetPrioritForAllTask = new MenuItem("Set Priority for all task");
+    SetPrioritForAllTask.addEventHandler(ActionEvent.ACTION, new MenuTaskChoice());
+   SetQualityForAllTask = new MenuItem("Set Quality for all task");
+   SetQualityForAllTask.addEventHandler(ActionEvent.ACTION, new MenuTaskChoice());
+    SetTaskmMenu.getItems().addAll(SetPrioritForAllTask,SetQualityForAllTask);
         
 }
 
+public void InterfaceMenu(){
+    SetInterfacemMenu = new Menu("_Interface");
+    SetPriorityForOneTask = new MenuItem("Set Priority");
+    SetPriorityForOneTask.addEventHandler(ActionEvent.ACTION, new menuInterfaceChoice());
+    SetQualityForOneTask = new MenuItem("Set Quality");
+    SetQualityForOneTask.addEventHandler(ActionEvent.ACTION, new menuInterfaceChoice());
+    SetInterfacemMenu.getItems().addAll(SetPriorityForOneTask,SetQualityForOneTask);
+}
 
+public void SendMenu(){
+    SendMenu = new Menu("_Send");
+    
+}
 
 public void OrgMenu(ArrayList<String> TasknName){
+    
     choiceBox = new ChoiceBox<>();
-    choiceBox.setStyle("-fx-Background-color: gold");
+    //choiceBox.setStyle("-fx-Background-color: black");    
     choiceBox.getItems().addAll(TasknName);    
    
     choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> System.out.println(newvalue));
     
 }
    
- public static void main(String[] args) {
-        launch(args);
-    }
+
 //////////////////////////////////////////////////////////////////////////
-    private static class colorButton implements EventHandler<ActionEvent>{
-
     
-        @Override
-        public void handle(ActionEvent event) {
-            System.out.println("Hello world!");
-        }
-        
-        }
-////////////////////////////Menu1 action event //////////////////////////////////////////////////////
- /**
-  * Menu1 action event
-  */
-    private class menu1Choise implements EventHandler<ActionEvent>{
 
-       
+    private class MenuTaskChoice implements EventHandler<ActionEvent>{
+
+        
         @Override
         public void handle(ActionEvent event) {
             
-            if (event.getSource() == SetGroupOrg) {
+            if (event.getSource() == SetQualityForAllTask) {
+                System.out.println(" ");
+                
+            }else if (event.getSource() == SetPrioritForAllTask) {
                 
             }
-            
-            
+                
         }
     }
-    
-   
-    
-    
-    
+
+    private class menuInterfaceChoice implements EventHandler<ActionEvent>{
+
+       
+        
+        @Override
+        public void handle(ActionEvent event) {
+            if (event.getSource() == SetPriorityForOneTask) {
+                
+            }
+            else if(event.getSource() == SetQualityForOneTask){
+                
+            }
+        }
+    }
 
 }
