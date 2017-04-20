@@ -5,6 +5,7 @@
  */
 package exjobb;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,7 +33,8 @@ public class GUI extends Application {
     @Override   
     
     public void start(Stage primaryStage) {
-        Button btn = new Button(null);
+        test();
+        /*Button btn = new Button(null);
         Contolloer = new guiControler(this);
         redButton = new Button();
         root = new BorderPane();
@@ -72,13 +74,13 @@ public class GUI extends Application {
                 + "-fx-text-fill: Withe;");
         */
         /////////////////////////////////////////////////////////////
-        root.setTop(menulist);
+      /*  root.setTop(menulist);
         root.setCenter(redButton);
         Scene scene = new Scene(root, 300, 250);
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();*/
     
     }
 
@@ -110,11 +112,24 @@ public class GUI extends Application {
             if (event.getSource() == SetGroupOrg) {
                 
             }
-            else if()
-            {
-                
-            }
+            
+            
         }
+    }
+    
+    private void test(){
+          ArrayList<TSN> temp = new ArrayList<TSN>();
+        ArrayList<Orginasation> orgList = new ArrayList<Orginasation>();
+        Orginasation org = new Orginasation();
+        TSN one = new TSN("Plain");
+        TSN two = new TSN("Test");
+        System.out.println(one.getName());
+        System.out.println("-----------------------------------------------");
+        temp.add(one);
+        temp.add(two);
+        org.setNoder(temp);        
+        System.out.println(org.getNoder().get(0).getName());
+        
     }
     
     

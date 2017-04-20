@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class Orginasation {
     private String name;
     private String info;
+    private String priotetForAllTSN;
+    private String QualityForAllTSN;
     private ArrayList<TSN> noder;
     
     public Orginasation (String InputName, String Inputinfo){
@@ -49,7 +51,7 @@ public class Orginasation {
      */
     public ArrayList<TSN> getNoder() {
         ArrayList<TSN> temp = new ArrayList<TSN>();
-        temp.addAll(noder);
+        temp.addAll(noder);       
         return temp;
     }
 
@@ -58,6 +60,35 @@ public class Orginasation {
      */
     public void setNoder(ArrayList<TSN> noder) {
         this.noder.addAll(noder);
+    }
+
+    /**
+     * @return the priotetForAllTSN
+     */
+    public String getPriotetForAllTSN() {
+        return priotetForAllTSN;
+    }
+
+    /**
+     * @param priotetForAllTSN the priotetForAllTSN to set
+     */
+    public void setPriotetForAllTSN(String priotetForAllTSN) {
+        this.priotetForAllTSN = priotetForAllTSN;
+        
+    }
+
+    /**
+     * @return the QualityForAllTSN
+     */
+    public String getQualityForAllTSN() {
+        return QualityForAllTSN;
+    }
+
+    /**
+     * @param QualityForAllTSN the QualityForAllTSN to set
+     */
+    public void setQualityForAllTSN(String QualityForAllTSN) {
+        this.QualityForAllTSN = QualityForAllTSN;
     }
     
 }
