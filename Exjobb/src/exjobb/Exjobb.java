@@ -14,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -22,8 +23,9 @@ import javafx.stage.Stage;
  * @author jonas
  */
 public class Exjobb extends Application {
-    BorderPane root;
-    Button redButton;
+   private BorderPane root;
+   private GridPane  border;
+    private Button redButton;
     
     @Override   
     
@@ -31,9 +33,10 @@ public class Exjobb extends Application {
         Button btn = new Button(null);
         redButton = new Button();
         root = new BorderPane();
+        border = new GridPane();
         btn.setText("Say 'Hello World'");
         redButton.setText("Say 'Hello World'");
-        //ActionEvent.ACTION, new colorButton()redbutton.addEventHandler(ActionEvent.ACTION, new colorButton());
+        
         redButton.addEventHandler(ActionEvent.ACTION, new colorButton());
            
         /////////////////////////////////////////////////////////////
@@ -41,23 +44,27 @@ public class Exjobb extends Application {
         MenuItem SetGroupOrg = new MenuItem("SetGroup");
         SetGroupOrg.addEventHandler(ActionEvent.ACTION, new menu1Choise());
         
+        menu1.getItems().addAll(SetGroupOrg);
         MenuBar menulist = new MenuBar();
         menulist.getMenus().addAll(menu1);
         
         /*
          Menu meny = new Menu("File");
         open = new MenuItem("Open");
-        open.addEventHandler(ActionEvent.ACTION, new menuChoise());
-        save = new MenuItem("Save");
-        save.addEventHandler(ActionEvent.ACTION, new menuChoise());
-        newGame = new MenuItem("New Game");
-        newGame.addEventHandler(ActionEvent.ACTION, new menuChoise());
-        newPlayer = new MenuItem("New Player");
-        newPlayer.addEventHandler(ActionEvent.ACTION, new menuChoise());
+        open.addEventHandler(ActionEvent.ACTION, new menuChoise());        
         meny.getItems().addAll(newGame, open, save, newPlayer);
+        
+        menuBar.setStyle("-fx-background-color: #a6b5c9,linear-gradient(#303842 0%, #3e5577 20%, #375074 100%),linear-gradient(#768aa5 0%, #849cbb 5%, #5877a2 50%, #486a9a 51%, #4a6c9b 100%);"
+                + "-fx-background-insets: 0 0 -1 0,0,1;"
+                + "-fx-background-radius: 5,5,4;"
+                + "-fx-padding: 7 30 7 30;"
+                + "-fx-text-fill: #242d35;"
+                + "-fx-font-family: Helvetica;"
+                + "-fx-font-size: 14px;"
+                + "-fx-text-fill: Withe;");
         */
         /////////////////////////////////////////////////////////////
-        
+        root.setTop(menulist);
         root.setCenter(redButton);
         Scene scene = new Scene(root, 300, 250);
         
