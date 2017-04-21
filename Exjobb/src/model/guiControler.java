@@ -38,6 +38,7 @@ public class guiControler {
         System.out.println("Contoler name: "+name);
        temp.addAll(model.GetTaskNames());
        gui.UppdateListOfTask(temp);
+       gui.OverViewSceen();
     }
     
     public void UppdateScreen(){
@@ -47,7 +48,7 @@ public class guiControler {
         gui.InterfaceMenu();
         gui.P_2_PMenu();
         gui.SendMenu();
-        //gui.ButtonTopLine();
+        gui.ButtonTopLine();
         gui.setListOfTask();
         tempTask.clear();
         gui.ModeMenu();

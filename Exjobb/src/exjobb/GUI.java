@@ -50,6 +50,7 @@ public class GUI extends Application {
    private HBox TopLine,TopLineLine2;
    private VBox ToplineVBox;
    private MenuBar menulist;
+   private GridPane Net;
     @Override   
     
     public void start(Stage primaryStage) {
@@ -89,7 +90,7 @@ public class GUI extends Application {
         
         TopLine.getChildren().addAll(Orginations,choiceBox,menulist); 
         TopLineLine2.setSpacing(20);
-        TopLineLine2.getChildren().addAll(Task);
+        TopLineLine2.getChildren().addAll(Task,ButtonOverview,ButtonInterface,ButtonNodes);
        
                
                
@@ -111,6 +112,11 @@ public class GUI extends Application {
 public void ButtonTopLine(){
     ButtonOverview = new Button("Overview");
     ButtonOverview.addEventHandler(ActionEvent.ACTION, new ButtonChoice());
+    ButtonInterface = new Button("Interface");
+    ButtonInterface.addEventFilter(ActionEvent.ACTION, new ButtonChoice());
+    ButtonNodes = new Button("Nodes");
+    ButtonNodes.addEventFilter(ActionEvent.ACTION, new ButtonChoice());
+    
 }
 public void ModeMenu(){
     ModeMenu = new Menu("Mode");
@@ -190,18 +196,21 @@ public void SetColor(){
 
 }
 
+
+
     private class ButtonChoice implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
             if (event.getSource() == ButtonOverview) {
-                
+                System.out.println("Overview");
+                OverViewSceen();
             }
             else if (event.getSource() == ButtonInterface) {
-                
+                System.out.println("Interface");
             }
             else if(event.getSource() == ButtonNodes){
-                
+                System.out.println("Nodes");
             }
         }
     }
@@ -283,5 +292,20 @@ public void SetColor(){
             }
         }
     }
+    
+    
+    public void  OverViewSceen(){
+        Net = new GridPane();
+        Label globalPriotet = new Label("Global Priority:");
+        Label globalQuality = new Label("Global Quality:");
+        Net.setVgap(20);
+        Net.setHgap(20);
+        Net.setAlignment(Pos.CENTER_LEFT);
+        Net.add(globalPriotet, 0, 0);
+        Net.add(globalQuality, 0, 1);
+        root.setCenter(Net);
+        
+    }
+    
 
 }
