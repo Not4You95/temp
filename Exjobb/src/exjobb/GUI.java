@@ -27,6 +27,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -339,15 +340,26 @@ public void InterfaceScreen(){
     ListOfInterface.add(new Interface("BFT", "HIGH","LOW"));
     ListOfInterface.add(new Interface("GPS", "LOW", "HIGE"));
     
-    TreeItem<String> rootI, interfacetItem,Video,Tracking,Massage;
+     TreeItem<Interface> rootTemp,interfaceItem;
+     rootTemp = new TreeItem<>();
+     rootTemp.setExpanded(true);
+        
+    interfaceItem = new TreeItem<>(new Interface("Video", "", ""));
+    rootTemp.getChildren().add(interfaceItem);
+    
+    TreeTableColumn<>
+    /* TreeItem<Interface> itemTemp = new TreeItem<>(NameInput);
+      itemTemp.setExpanded(true);
+      item.getChildren().add(itemTemp); 
+   /* TreeItem<Interface> rootI, interfacetItem,Video,Tracking,Massage;
     
     rootI = new TreeItem<>();
     rootI.setExpanded(true);
     
     
-    interfacetItem = makeTreeView("Interface",rootI);
+    //interfacetItem = makeTreeView(new Interface("BFT", "HIGH","LOW"),rootI);
     
-    Video = makeTreeView("Video", rootI);
+  /*  Video = makeTreeView("Video", rootI);
     makeTreeView("Medec Video", Video);
     makeTreeView("UAV Video", Video);
     
@@ -356,25 +368,23 @@ public void InterfaceScreen(){
     makeTreeView("GPS", Tracking);
     
     Massage = makeTreeView("Massage", rootI);
-    makeTreeView("SMS", Massage);
+    makeTreeView("SMS", Massage);*/
     
     
     
     
-     TreeView<String> tree = new TreeView<>(rootI);
+     TreeView<Interface> tree = new TreeView<>(rootTemp);
      tree.setShowRoot(false);
      root.setCenter(tree);
     
     
 }
 
-  public TreeItem<String> makeTreeView(String NameInput,TreeItem item) {
-      TreeItem<String> itemTemp = new TreeItem<>(NameInput);
+  public TreeItem<Interface> makeTreeView(Interface NameInput,TreeItem item) {
+      TreeItem<Interface> itemTemp = new TreeItem<>(NameInput);
       itemTemp.setExpanded(true);
-      item.getChildren().add(itemTemp);
-              
-              
-      
+      item.getChildren().add(itemTemp);            
+             
       return itemTemp;
   }
     
