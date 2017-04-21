@@ -38,7 +38,11 @@ public class guiControler {
         System.out.println("Contoler name: "+name);
        temp.addAll(model.GetTaskNames());
        gui.UppdateListOfTask(temp);
-       gui.OverViewSceen();
+       gui.OverViewSceen("TRUE","False","This is a test");
+    }
+    
+    public void Overview(){
+        gui.OverViewSceen("TRUE", "False","This is a test");
     }
     
     public void UppdateScreen(){

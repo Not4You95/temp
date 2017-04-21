@@ -23,12 +23,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
@@ -47,8 +49,8 @@ public class GUI extends Application {
    private ComboBox <String> choiceBox;
    private CheckMenuItem Plan,Live,Simulate;
    private ListView<String> ListOfTasks;
-   private HBox TopLine,TopLineLine2;
-   private VBox ToplineVBox;
+   private HBox TopLine,TopLineLine2,CenterHBox;
+   private VBox ToplineVBox,CentetVBox;
    private MenuBar menulist;
    private GridPane Net;
     @Override   
@@ -204,7 +206,7 @@ public void SetColor(){
         public void handle(ActionEvent event) {
             if (event.getSource() == ButtonOverview) {
                 System.out.println("Overview");
-                OverViewSceen();
+                Contolloer.Overview();
             }
             else if (event.getSource() == ButtonInterface) {
                 System.out.println("Interface");
@@ -294,16 +296,32 @@ public void SetColor(){
     }
     
     
-    public void  OverViewSceen(){
+    public void  OverViewSceen(String GlobalPriorityIput,String GlobalQualityInput,String info){
         Net = new GridPane();
+        CenterHBox = new HBox();
+        CentetVBox = new VBox();
+        Label labelText = new Label("Information:");
+        Text texttest = new Text(info);
+        
         Label globalPriotet = new Label("Global Priority:");
         Label globalQuality = new Label("Global Quality:");
         Net.setVgap(20);
         Net.setHgap(20);
-        Net.setAlignment(Pos.CENTER_LEFT);
+        Net.setAlignment(Pos.TOP_CENTER);
+        CentetVBox.setAlignment(Pos.CENTER_LEFT);
         Net.add(globalPriotet, 0, 0);
         Net.add(globalQuality, 0, 1);
-        root.setCenter(Net);
+        
+        Label temp1 = new Label(GlobalPriorityIput);
+        Label temp2 = new Label(GlobalQualityInput);
+        Net.add(temp1, 1, 0);
+        Net.add(temp2, 1, 1);
+        CentetVBox.getChildren().addAll(labelText,texttest);
+        CenterHBox.setSpacing(20);
+        CenterHBox.setAlignment(Pos.CENTER_LEFT);
+        CenterHBox.getChildren().addAll(CentetVBox,Net);
+        
+        root.setCenter(CenterHBox);
         
     }
     
