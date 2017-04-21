@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.jar.Attributes;
 
@@ -12,7 +13,7 @@ import java.util.jar.Attributes;
  *
  * @author jonas
  */
-public class TSN {
+public class TSN implements Serializable{
 private String name;
 private ArrayList<Interface> ListOfInterface;
 

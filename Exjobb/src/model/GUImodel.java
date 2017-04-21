@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import model.*;
 
@@ -14,9 +16,16 @@ import model.*;
  */
 public class GUImodel {
     private ArrayList<Orginasation> Org;
+    private ReadAndWriteToFile SaveAndRead;
+    private File filename;
+    private String OrgName;
+    
+    
     
     public GUImodel(){
         Org = new ArrayList<Orginasation>();
+        SaveAndRead = new ReadAndWriteToFile();
+        filename = new File("test.txt");       
     }
     
     public ArrayList<String> GetOrgNames(){
@@ -27,12 +36,38 @@ public class GUImodel {
         return temp;
     }
     
+    public void SetOrgName(String name){
+        OrgName = name;        
+    }
     
     
-      public void test(){
+    public ArrayList<String> GetTaskNames(){
+        ArrayList<String> temp = new ArrayList<String>();
+        for (int i = 0; i < Org.size(); i++) {
+            if (Org.get(i).getName() == OrgName) {
+                temp.addAll(Org.get(i).GetTaskNames());               
+            } 
+        }
+        
+        return temp;
+    }
+    
+    
+    public void SaveToFile() throws IOException, AlertToUser{
+           SaveAndRead.writeToFile(Org, filename);          
+    }
+    
+    public void ReadFromFile() throws AlertToUser, IOException, ClassNotFoundException{
+         
+         Org.add(SaveAndRead.readFromFile(filename));
+        
+    }
+    
+      public void test() {
           ArrayList<TSN> temp = new ArrayList<TSN>();
         ArrayList<Orginasation> orgList = new ArrayList<Orginasation>();
         Task task = new Task("Defend the candy");
+        Task task2 = new Task("Defend the hill");
         ArrayList<Task> taskList = new ArrayList<Task>();
         Orginasation Gotland = new Orginasation();
         Orginasation Blidö = new Orginasation();
@@ -60,7 +95,9 @@ public class GUImodel {
         temp.add(seven);
         temp.add(eight);
         task.setNoder(temp);
+        task2.setNoder(temp);
         taskList.add(task);
+        taskList.add(task2);
         /////////////////////////////////////////////////////
         Gotland.setTasks(taskList);
         Gotland.setName("Gotland");
@@ -74,6 +111,7 @@ public class GUImodel {
         Org.add(Öland);
         Org.add(Gotland);
         Org.add(Blidö);
+
        /*for (int i = 0; i < 1; i++) {
             for (int j = 0; j < temp.size() ; j++) {
                 System.out.println(org.getTasks().get(0).getNoder().get(j).getName());

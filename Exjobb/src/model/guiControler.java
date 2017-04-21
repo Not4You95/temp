@@ -32,8 +32,16 @@ public class guiControler {
         
     }
     
+    public void ChoiceOfOrg(String name){
+       ArrayList<String> temp = new ArrayList<String>();  
+       model.SetOrgName(name);
+        System.out.println("Contoler name: "+name);
+       temp.addAll(model.GetTaskNames());
+       gui.UppdateListOfTask(temp);
+    }
+    
     public void UppdateScreen(){
-        ArrayList<String> temp = new ArrayList<String>();      
+           
         gui.OrgMenu(model.GetOrgNames());
         gui.TaskMenu();
         gui.InterfaceMenu();
@@ -41,9 +49,9 @@ public class guiControler {
         gui.SendMenu();
         gui.setListOfTask();
         tempTask.clear();
-        tempTask.add("Test");
-        tempTask.add("Hello");
-        gui.UppdateListOfTask(tempTask);
+       // tempTask.add("Test");
+       // tempTask.add("Hello");
+       
         
        
     }

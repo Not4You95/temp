@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jonas
  */
-public class Interface {
+public class Interface implements Serializable {
     private String Priority;
     private String Quality;
     private boolean Pruducer;

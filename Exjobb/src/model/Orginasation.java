@@ -5,13 +5,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jonas
  */
-public class Orginasation {
+public class Orginasation implements Serializable {
     private String name;
     private String info;
     private String priotetForAllTSN;
@@ -55,7 +56,15 @@ public class Orginasation {
     public String getPriotetForAllTSN() {
         return priotetForAllTSN;
     }
-
+    
+    public ArrayList<String> GetTaskNames(){
+        ArrayList<String> temp = new ArrayList<String>();
+        for (int i = 0; i < Tasks.size(); i++) {
+            temp.add(Tasks.get(i).getName());
+            System.out.println(Tasks.get(i).getName());
+        }
+        return temp;
+    }
     /**
      * @param priotetForAllTSN the priotetForAllTSN to set
      */

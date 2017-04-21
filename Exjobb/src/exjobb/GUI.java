@@ -134,7 +134,7 @@ public void OrgMenu(ArrayList<String> TasknName){
     choiceBox = new ChoiceBox<>();
     //choiceBox.setStyle("-fx-Background-color: black");    
     choiceBox.getItems().addAll(TasknName);  
-    choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> System.out.println(newvalue));
+    choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> Contolloer.ChoiceOfOrg(newvalue));
     
 }
 public void setListOfTask(){
@@ -144,7 +144,9 @@ public void setListOfTask(){
     
 }
 public void UppdateListOfTask(ArrayList<String> task){
+     ListOfTasks.getItems().clear();
     ListOfTasks.getItems().addAll(task);
+   
 }
     private class MenuP_2_PChoice implements EventHandler<ActionEvent>{
 

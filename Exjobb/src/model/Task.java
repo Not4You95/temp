@@ -5,13 +5,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jonas
  */
-public class Task {
+public class Task implements Serializable{
      private ArrayList<TSN> noder;
      private String Name;
      
