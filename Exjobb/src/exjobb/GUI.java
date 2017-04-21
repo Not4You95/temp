@@ -308,7 +308,7 @@ public void SetColor(){
         Net.setVgap(20);
         Net.setHgap(20);
         Net.setAlignment(Pos.TOP_CENTER);
-        CentetVBox.setAlignment(Pos.CENTER_LEFT);
+        CentetVBox.setAlignment(Pos.TOP_CENTER);
         Net.add(globalPriotet, 0, 0);
         Net.add(globalQuality, 0, 1);
         

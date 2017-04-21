@@ -78,7 +78,17 @@ public class GUImodel {
       String temp=null;
        for (int i = 0; i < Org.size(); i++) {
             if (Org.get(i).getName() == OrgName) {
-                temp = Org.get(i).getPriotetForAllTSN();
+                temp = Org.get(i).getPriotetForAllTSN();                              
+            } 
+        }
+       return temp;
+    }
+    
+    public String GetOrgQualityForAll(){
+         String temp=null;
+       for (int i = 0; i < Org.size(); i++) {
+            if (Org.get(i).getName() == OrgName) {
+                temp = Org.get(i).getQualityForAllTSN();
                               
             } 
         }
@@ -123,15 +133,21 @@ public class GUImodel {
         /////////////////////////////////////////////////////
         Gotland.setTasks(taskList);
         Gotland.setName("Gotland");
-        Gotland.setInfo("Defend Gtoland from ryssland");
+        Gotland.setInfo("Defend Gtoland from Ryssland");
+        Gotland.setPriotetForAllTSN("HIGE");
+        Gotland.setQualityForAllTSN("Medium");
         //////////////////////////////////////////////////////
         Öland.setTasks(taskList);
         Öland.setName("Öland");
         Öland.setInfo("Defend Öland from Denmark");
+        Öland.setPriotetForAllTSN("LOW");
+        Öland.setQualityForAllTSN("LOW");
         //////////////////////////////////////////////////////
         Blidö.setTasks(taskList);
         Blidö.setName("Blidö");
         Blidö.setInfo("Defend from who?");
+        Blidö.setPriotetForAllTSN("HIGE");
+        Blidö.setQualityForAllTSN("HIGE");
         ///////////////////////////////////////////////////////////////////////
         Org.add(Öland);
         Org.add(Gotland);

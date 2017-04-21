@@ -38,11 +38,11 @@ public class guiControler {
         System.out.println("Contoler name: "+name);
        temp.addAll(model.GetTaskNames());
        gui.UppdateListOfTask(temp);
-       gui.OverViewSceen("TRUE","False","This is a test");
+       gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
     }
     
     public void Overview(){
-        gui.OverViewSceen("TRUE", "False","This is a test");
+        gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
     }
     
     public void UppdateScreen(){

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Orginasation implements Serializable {
     private String name;
     private String info;
-    private String priotetForAllTSN;
-    private String QualityForAllTSN;
+    private String priotetForAllTSN=null;
+    private String QualityForAllTSN=null;
     private ArrayList<Task> Tasks;
    
     
