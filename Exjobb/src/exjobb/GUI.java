@@ -16,9 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -34,11 +36,13 @@ import model.*;
 public class GUI extends Application {
    private BorderPane root;
    private GridPane  border;
-   private Button redButton;
+   private Button Button;
    private MenuItem SetGroupOrg,SetPrioritForAllTask,SetQualityForAllTask,SetQualityForOneTask,SetPriorityForOneTask;
+   private MenuItem SendToSystem,P_2_P_MenuItem,SendToSystemItem;
    private guiControler Contolloer;
    private Menu SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu;
    private ChoiceBox <String> choiceBox;
+   private ListView<String> ListOfTasks;
    private HBox TopLine;
     @Override   
     
@@ -46,7 +50,7 @@ public class GUI extends Application {
        
         Button btn = new Button(null);
         Contolloer = new guiControler(this);
-        redButton = new Button();
+        Button = new Button();
         root = new BorderPane();
         border = new GridPane();
         TopLine = new HBox(20);
@@ -58,7 +62,7 @@ public class GUI extends Application {
            
         /////////////////////Menu ////////////////////////////////////////
        
-        Label Orginations = new Label("Org:");
+        Label Orginations = new Label("Organization:");
         ///////////////////////Task Menu///////////////////////////////////////////
        
         
@@ -71,7 +75,7 @@ public class GUI extends Application {
         
         
         MenuBar menulist = new MenuBar();
-        menulist.getMenus().addAll(SetTaskmMenu,SetInterfacemMenu);
+        menulist.getMenus().addAll(SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu);
         /////////////////////////////////////////////////////////////
         TopLine.setAlignment(Pos.CENTER_LEFT);
         TopLine.setSpacing(20);
@@ -81,9 +85,11 @@ public class GUI extends Application {
         
        // root.setTop(TopLine);
         root.setTop(TopLine);
+        
+        root.setLeft(ListOfTasks);
         Scene scene = new Scene(root, 700, 300);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("GUI");
         primaryStage.setScene(scene);
         primaryStage.show();
     
@@ -110,18 +116,59 @@ public void InterfaceMenu(){
 
 public void SendMenu(){
     SendMenu = new Menu("_Send");
-    
+    SendToSystem = new Menu("Send to system");
+    SendToSystem.addEventHandler(ActionEvent.ACTION, new MenuSendChoice());
+    SendMenu.getItems().add(SendToSystem);
+}
+
+public void P_2_PMenu(){
+    P_2_P_Menu = new Menu("_P_2_P");
+    P_2_P_Menu.addEventHandler(ActionEvent.ACTION, new MenuP_2_PChoice());
+    P_2_P_MenuItem = new MenuItem("P-2-P");
+    P_2_P_MenuItem.addEventHandler(ActionEvent.ACTION, new MenuP_2_PChoice());
+    P_2_P_Menu.getItems().add(P_2_P_MenuItem);
 }
 
 public void OrgMenu(ArrayList<String> TasknName){
     
     choiceBox = new ChoiceBox<>();
     //choiceBox.setStyle("-fx-Background-color: black");    
-    choiceBox.getItems().addAll(TasknName);    
-   
+    choiceBox.getItems().addAll(TasknName);  
     choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> System.out.println(newvalue));
     
 }
+public void setListOfTask(){
+    ListOfTasks = new ListView<String>();    
+    ListOfTasks.setPrefSize(100, 280);
+    ListOfTasks.getSelectionModel().selectedIndexProperty().addListener((v,oldvalue,newvalue)-> System.out.println(newvalue));
+    
+}
+public void UppdateListOfTask(ArrayList<String> task){
+    ListOfTasks.getItems().addAll(task);
+}
+    private class MenuP_2_PChoice implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (event.getSource() == P_2_P_MenuItem) {
+                System.out.println("P_2_P\n");
+                
+            }
+        }
+    }
+
+    private class MenuSendChoice implements EventHandler<ActionEvent>{
+
+       
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (event.getSource() == SendToSystem) {
+                System.out.println("Send To System\n");
+                
+            }
+        }
+    }
    
 
 //////////////////////////////////////////////////////////////////////////
@@ -134,10 +181,10 @@ public void OrgMenu(ArrayList<String> TasknName){
         public void handle(ActionEvent event) {
             
             if (event.getSource() == SetQualityForAllTask) {
-                System.out.println(" ");
+                System.out.println("Set Quality\n");
                 
             }else if (event.getSource() == SetPrioritForAllTask) {
-                
+                System.out.println("Set Priority\n");
             }
                 
         }
@@ -150,10 +197,10 @@ public void OrgMenu(ArrayList<String> TasknName){
         @Override
         public void handle(ActionEvent event) {
             if (event.getSource() == SetPriorityForOneTask) {
-                
+                System.out.println("Set priority\n");
             }
             else if(event.getSource() == SetQualityForOneTask){
-                
+                System.out.println("Set Quality\n");
             }
         }
     }

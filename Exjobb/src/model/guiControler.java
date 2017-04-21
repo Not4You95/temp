@@ -16,11 +16,12 @@ import model.*;
 public class guiControler {
     private GUI gui;
     private GUImodel model;
-    
+    private ArrayList<String> tempTask;
     public guiControler(GUI GUICLASS){
         gui = GUICLASS; 
         model = new GUImodel();
         model.test();
+        tempTask = new ArrayList<String>();
         
         
     }
@@ -36,6 +37,15 @@ public class guiControler {
         gui.OrgMenu(model.GetOrgNames());
         gui.TaskMenu();
         gui.InterfaceMenu();
+        gui.P_2_PMenu();
+        gui.SendMenu();
+        gui.setListOfTask();
+        tempTask.clear();
+        tempTask.add("Test");
+        tempTask.add("Hello");
+        gui.UppdateListOfTask(tempTask);
+        
+       
     }
    
     

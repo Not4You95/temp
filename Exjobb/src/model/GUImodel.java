@@ -27,10 +27,12 @@ public class GUImodel {
         return temp;
     }
     
+    
+    
       public void test(){
           ArrayList<TSN> temp = new ArrayList<TSN>();
         ArrayList<Orginasation> orgList = new ArrayList<Orginasation>();
-        Task task = new Task("Defend kandy");
+        Task task = new Task("Defend the candy");
         ArrayList<Task> taskList = new ArrayList<Task>();
         Orginasation Gotland = new Orginasation();
         Orginasation Blidö = new Orginasation();
