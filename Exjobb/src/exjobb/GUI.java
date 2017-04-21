@@ -14,7 +14,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -26,6 +28,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.*;
 
@@ -36,24 +39,27 @@ import model.*;
 public class GUI extends Application {
    private BorderPane root;
    private GridPane  border;
-   private Button Button;
+   private Button ButtonOverview,ButtonInterface,ButtonNodes;
    private MenuItem SetGroupOrg,SetPrioritForAllTask,SetQualityForAllTask,SetQualityForOneTask,SetPriorityForOneTask;
    private MenuItem SendToSystem,P_2_P_MenuItem,SendToSystemItem;
    private guiControler Contolloer;
-   private Menu SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu;
-   private ChoiceBox <String> choiceBox;
+   private Menu SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu,ModeMenu;
+   private ComboBox <String> choiceBox;
+   private CheckMenuItem Plan,Live,Simulate;
    private ListView<String> ListOfTasks;
-   private HBox TopLine;
+   private HBox TopLine,TopLineLine2;
+   private VBox ToplineVBox;
+   private MenuBar menulist;
     @Override   
     
     public void start(Stage primaryStage) {
        
-        Button btn = new Button(null);
-        Contolloer = new guiControler(this);
-        Button = new Button();
+        Contolloer = new guiControler(this);        
         root = new BorderPane();
         border = new GridPane();
         TopLine = new HBox(20);
+        TopLineLine2 = new HBox();
+        ToplineVBox = new VBox();
         Contolloer.UppdateScreen();
         
         ///////////////////////////////////////////////////////////////////////
@@ -63,6 +69,7 @@ public class GUI extends Application {
         /////////////////////Menu ////////////////////////////////////////
        
         Label Orginations = new Label("Organization:");
+        Label Task = new Label("Task");
         ///////////////////////Task Menu///////////////////////////////////////////
        
         
@@ -74,19 +81,24 @@ public class GUI extends Application {
                     " black 60, #141414 60.1%, black 100%);");*/
         
         
-        MenuBar menulist = new MenuBar();
-        menulist.getMenus().addAll(SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu);
+        menulist = new MenuBar();
+        menulist.getMenus().addAll(SetTaskmMenu,SetInterfacemMenu,P_2_P_Menu,SendMenu,ModeMenu);
         /////////////////////////////////////////////////////////////
         TopLine.setAlignment(Pos.CENTER_LEFT);
         TopLine.setSpacing(20);
         
-        TopLine.getChildren().addAll(Orginations,choiceBox,menulist);
-       //TopLine.getChildren().add(menulist);
-        
-       // root.setTop(TopLine);
-        root.setTop(TopLine);
+        TopLine.getChildren().addAll(Orginations,choiceBox,menulist); 
+        TopLineLine2.setSpacing(20);
+        TopLineLine2.getChildren().addAll(Task);
+       
+               
+               
+       ToplineVBox.getChildren().addAll(TopLine,TopLineLine2);
+       
+       root.setTop(ToplineVBox);
         
         root.setLeft(ListOfTasks);
+        SetColor();
         Scene scene = new Scene(root, 700, 300);
         
         primaryStage.setTitle("GUI");
@@ -94,6 +106,23 @@ public class GUI extends Application {
         primaryStage.show();
     
     }
+    
+    
+public void ButtonTopLine(){
+    ButtonOverview = new Button("Overview");
+    ButtonOverview.addEventHandler(ActionEvent.ACTION, new ButtonChoice());
+}
+public void ModeMenu(){
+    ModeMenu = new Menu("Mode");
+    Plan = new CheckMenuItem("Plan");
+    Plan.addEventHandler(ActionEvent.ACTION, new ModeMenuChoice());
+    Live = new CheckMenuItem("Live");
+    Live.addEventHandler(ActionEvent.ACTION, new ModeMenuChoice());
+    Simulate = new CheckMenuItem("Simnulate");
+    Simulate.addEventHandler(ActionEvent.ACTION, new ModeMenuChoice());
+    ModeMenu.getItems().addAll(Plan,Live,Simulate);
+
+}   
 
 public void TaskMenu(){
     SetTaskmMenu = new Menu("_Task");
@@ -131,9 +160,10 @@ public void P_2_PMenu(){
 
 public void OrgMenu(ArrayList<String> TasknName){
     
-    choiceBox = new ChoiceBox<>();
+    choiceBox = new ComboBox<>();
     //choiceBox.setStyle("-fx-Background-color: black");    
-    choiceBox.getItems().addAll(TasknName);  
+    choiceBox.getItems().addAll(TasknName); 
+    choiceBox.setPromptText("Org");
     choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> Contolloer.ChoiceOfOrg(newvalue));
     
 }
@@ -145,13 +175,60 @@ public void setListOfTask(){
 }
 public void UppdateListOfTask(ArrayList<String> task){
      ListOfTasks.getItems().clear();
-    ListOfTasks.getItems().addAll(task);
+     ListOfTasks.getItems().addAll(task);
    
 }
+
+public void SetColor(){
+    TopLine.setStyle("-fx-background-color: #ccccb3");
+    TopLineLine2.setStyle("-fx-background-color: #ccccb3");
+    menulist.setStyle("-fx-background-color: #ccccb3");
+    choiceBox.setStyle("-fx-background-color: #ccccb3");
+    ButtonOverview.setStyle("-fx-background-color: #ccccb3");
+    ButtonInterface.setStyle("-fx-background-color: #ccccb3");
+    ButtonNodes.setStyle("-fx-background-color: #ccccb3");
+
+}
+
+    private class ButtonChoice implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (event.getSource() == ButtonOverview) {
+                
+            }
+            else if (event.getSource() == ButtonInterface) {
+                
+            }
+            else if(event.getSource() == ButtonNodes){
+                
+            }
+        }
+    }
+
+    private class ModeMenuChoice implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (event.getSource() == Plan) {
+                Live.setSelected(false);
+                Simulate.setSelected(false);
+            }
+            else if (event.getSource() == Live) {
+                Plan.setSelected(false);
+                Simulate.setSelected(false);
+            }
+            else if (event.getSource() == Simulate) {
+                Plan.setSelected(false);
+                Live.setSelected(false);
+            }
+        }
+    }
     private class MenuP_2_PChoice implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
+           
             if (event.getSource() == P_2_P_MenuItem) {
                 System.out.println("P_2_P\n");
                 

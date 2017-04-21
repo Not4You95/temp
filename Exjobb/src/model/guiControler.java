@@ -47,8 +47,11 @@ public class guiControler {
         gui.InterfaceMenu();
         gui.P_2_PMenu();
         gui.SendMenu();
+        //gui.ButtonTopLine();
         gui.setListOfTask();
         tempTask.clear();
+        gui.ModeMenu();
+        
        // tempTask.add("Test");
        // tempTask.add("Hello");
        
