@@ -6,6 +6,7 @@
 package exjobb;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -198,6 +201,8 @@ public void SetColor(){
 
 }
 
+  
+
 
 
     private class ButtonChoice implements EventHandler<ActionEvent>{
@@ -210,6 +215,7 @@ public void SetColor(){
             }
             else if (event.getSource() == ButtonInterface) {
                 System.out.println("Interface");
+                InterfaceScreen();
             }
             else if(event.getSource() == ButtonNodes){
                 System.out.println("Nodes");
@@ -324,6 +330,53 @@ public void SetColor(){
         root.setCenter(CenterHBox);
         
     }
+public void InterfaceScreen(){
+   
+    ArrayList<Interface> ListOfInterface = new ArrayList<>();
+    
+    Interface temp = new Interface("BFT", "HIGH","LOW");
+    
+    ListOfInterface.add(new Interface("BFT", "HIGH","LOW"));
+    ListOfInterface.add(new Interface("GPS", "LOW", "HIGE"));
+    
+    TreeItem<String> rootI, interfacetItem,Video,Tracking,Massage;
+    
+    rootI = new TreeItem<>();
+    rootI.setExpanded(true);
+    
+    
+    interfacetItem = makeTreeView("Interface",rootI);
+    
+    Video = makeTreeView("Video", rootI);
+    makeTreeView("Medec Video", Video);
+    makeTreeView("UAV Video", Video);
+    
+    Tracking = makeTreeView("Tracking", rootI);
+    makeTreeView("BFT", Tracking);
+    makeTreeView("GPS", Tracking);
+    
+    Massage = makeTreeView("Massage", rootI);
+    makeTreeView("SMS", Massage);
+    
+    
+    
+    
+     TreeView<String> tree = new TreeView<>(rootI);
+     tree.setShowRoot(false);
+     root.setCenter(tree);
+    
+    
+}
+
+  public TreeItem<String> makeTreeView(String NameInput,TreeItem item) {
+      TreeItem<String> itemTemp = new TreeItem<>(NameInput);
+      itemTemp.setExpanded(true);
+      item.getChildren().add(itemTemp);
+              
+              
+      
+      return itemTemp;
+  }
     
 
 }

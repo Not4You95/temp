@@ -24,9 +24,12 @@ public class Interface implements Serializable {
     
     
 }
-    public Interface(String name){
+    public Interface(String name,String priority,String quality){
         this.Name = name;
+        this.Priority = priority;
+        this.Quality = quality;
     }
+    
     public void SetPriority(String Priority){
         this.setPriority(Priority);
     }
