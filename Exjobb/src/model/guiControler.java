@@ -38,6 +38,7 @@ public class guiControler {
         System.out.println("Contoler name: "+name);
        temp.addAll(model.GetTaskNames());
        gui.UppdateListOfTask(temp);
+       gui.InterfaceScreen();
        gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
     }
     

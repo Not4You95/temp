@@ -8,9 +8,11 @@ package exjobb;
 import java.util.ArrayList;
 import java.util.Collection;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,10 +26,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -36,6 +43,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.*;
 
 /**
@@ -57,21 +65,32 @@ public class GUI extends Application {
    private VBox ToplineVBox,CentetVBox;
    private MenuBar menulist;
    private GridPane Net;
+   private Tab Overview,Interface,Nodes;
     @Override   
     
     public void start(Stage primaryStage) {
        
         Contolloer = new guiControler(this);        
         root = new BorderPane();
+        TabPane tabPane = new TabPane();
         border = new GridPane();
         TopLine = new HBox(20);
         TopLineLine2 = new HBox();
         ToplineVBox = new VBox();
         Contolloer.UppdateScreen();
-        
+        Live.setSelected(false);
+        Simulate.setSelected(false);
+        Overview = new Tab("Overwiew");
+        Interface = new Tab("Interface");
+        Nodes = new Tab("Nodes");
         ///////////////////////////////////////////////////////////////////////
-        
-        
+        Overview.setClosable(false);
+        Interface.setClosable(false);
+        Nodes.setClosable(false);
+       
+        Tab tabA = new Tab("Test");
+        tabPane.getTabs().addAll(Overview,Interface,Nodes);
+        root.setCenter(tabPane);
            
         /////////////////////Menu ////////////////////////////////////////
        
@@ -94,13 +113,13 @@ public class GUI extends Application {
         TopLine.setAlignment(Pos.CENTER_LEFT);
         TopLine.setSpacing(20);
         
-        TopLine.getChildren().addAll(Orginations,choiceBox,menulist); 
+        TopLine.getChildren().addAll(choiceBox,menulist); 
         TopLineLine2.setSpacing(20);
         TopLineLine2.getChildren().addAll(Task,ButtonOverview,ButtonInterface,ButtonNodes);
        
                
                
-       ToplineVBox.getChildren().addAll(TopLine,TopLineLine2);
+       ToplineVBox.getChildren().addAll(TopLine);
        
        root.setTop(ToplineVBox);
         
@@ -125,7 +144,7 @@ public void ButtonTopLine(){
     
 }
 public void ModeMenu(){
-    ModeMenu = new Menu("Mode");
+    ModeMenu = new Menu("_Mode");
     Plan = new CheckMenuItem("Plan");
     Plan.addEventHandler(ActionEvent.ACTION, new ModeMenuChoice());
     Live = new CheckMenuItem("Live");
@@ -175,12 +194,12 @@ public void OrgMenu(ArrayList<String> TasknName){
     choiceBox = new ComboBox<>();
     //choiceBox.setStyle("-fx-Background-color: black");    
     choiceBox.getItems().addAll(TasknName); 
-    choiceBox.setPromptText("Org");
+    choiceBox.setPromptText("Orginsation");
     choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> Contolloer.ChoiceOfOrg(newvalue));
     
 }
 public void setListOfTask(){
-    ListOfTasks = new ListView<String>();    
+    ListOfTasks = new ListView<String>();
     ListOfTasks.setPrefSize(100, 280);
     ListOfTasks.getSelectionModel().selectedIndexProperty().addListener((v,oldvalue,newvalue)-> System.out.println(newvalue));
     
@@ -201,6 +220,15 @@ public void SetColor(){
     ButtonNodes.setStyle("-fx-background-color: #ccccb3");
 
 }
+
+    private  class TreeTableContol {
+
+        public TreeTableContol() {
+            System.out.println("hej");
+        }
+    }
+
+ 
 
   
 
@@ -308,7 +336,11 @@ public void SetColor(){
         CenterHBox = new HBox();
         CentetVBox = new VBox();
         Label labelText = new Label("Information:");
-        Text texttest = new Text(info);
+        //Text texttest = new Text(info);
+        TextArea text = new TextArea(info);
+        text.setMaxWidth(150);
+        text.setPrefColumnCount(10);
+        text.setWrapText(true);
         
         Label globalPriotet = new Label("Global Priority:");
         Label globalQuality = new Label("Global Quality:");
@@ -316,68 +348,41 @@ public void SetColor(){
         Net.setHgap(20);
         Net.setAlignment(Pos.TOP_CENTER);
         CentetVBox.setAlignment(Pos.TOP_CENTER);
-        Net.add(globalPriotet, 0, 0);
-        Net.add(globalQuality, 0, 1);
+        Net.add(globalPriotet,0,2);
+        Net.add(globalQuality, 0, 3);
         
         Label temp1 = new Label(GlobalPriorityIput);
         Label temp2 = new Label(GlobalQualityInput);
-        Net.add(temp1, 1, 0);
-        Net.add(temp2, 1, 1);
-        CentetVBox.getChildren().addAll(labelText,texttest);
+        Net.add(temp1, 1, 2);
+        Net.add(temp2, 1, 3);
+        CentetVBox.getChildren().addAll(labelText,text);
         CenterHBox.setSpacing(20);
         CenterHBox.setAlignment(Pos.CENTER_LEFT);
         CenterHBox.getChildren().addAll(CentetVBox,Net);
         
-        root.setCenter(CenterHBox);
+        Overview.setContent(CenterHBox);
         
     }
 public void InterfaceScreen(){
-   
-    ArrayList<Interface> ListOfInterface = new ArrayList<>();
+    TreeItem<String> Tree1 = new TreeItem<>("Tracking");
+    TreeItem<String> Tree2 = new TreeItem<>("Video");
+    TreeItem<String> Tree3 = new TreeItem<>("Massage");
     
-    Interface temp = new Interface("BFT", "HIGH","LOW");
+    TreeItem<String> rootInterface = new TreeItem<>("Root");
+     rootInterface.getChildren().addAll(Tree1,Tree2,Tree3);
+     
+     TreeTableColumn<String,String> colum = new TreeTableColumn<>("Colum");
+     colum.setPrefWidth(150);
+     
+     
     
-    ListOfInterface.add(new Interface("BFT", "HIGH","LOW"));
-    ListOfInterface.add(new Interface("GPS", "LOW", "HIGE"));
+     //colum.setCellValueFactory((TableColumn.CellDataFeatures<String, String> p) -> (ObservableValue<T>) new ReadOnlyStringWrapper(p.getValue()));
+    ///  choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> Contolloer.ChoiceOfOrg(newvalue));
+    TreeTableView<String> treeTableView = new TreeTableView<>(rootInterface);
+    treeTableView.getSelectionModel().selectedItemProperty().addListener((VBox,oldvalue,newvalue)-> new TreeTableContol());
+    treeTableView.getColumns().add(colum);
     
-     TreeItem<Interface> rootTemp,interfaceItem;
-     rootTemp = new TreeItem<>();
-     rootTemp.setExpanded(true);
-        
-    interfaceItem = new TreeItem<>(new Interface("Video", "", ""));
-    rootTemp.getChildren().add(interfaceItem);
-    
-    TreeTableColumn<>
-    /* TreeItem<Interface> itemTemp = new TreeItem<>(NameInput);
-      itemTemp.setExpanded(true);
-      item.getChildren().add(itemTemp); 
-   /* TreeItem<Interface> rootI, interfacetItem,Video,Tracking,Massage;
-    
-    rootI = new TreeItem<>();
-    rootI.setExpanded(true);
-    
-    
-    //interfacetItem = makeTreeView(new Interface("BFT", "HIGH","LOW"),rootI);
-    
-  /*  Video = makeTreeView("Video", rootI);
-    makeTreeView("Medec Video", Video);
-    makeTreeView("UAV Video", Video);
-    
-    Tracking = makeTreeView("Tracking", rootI);
-    makeTreeView("BFT", Tracking);
-    makeTreeView("GPS", Tracking);
-    
-    Massage = makeTreeView("Massage", rootI);
-    makeTreeView("SMS", Massage);*/
-    
-    
-    
-    
-     TreeView<Interface> tree = new TreeView<>(rootTemp);
-     tree.setShowRoot(false);
-     root.setCenter(tree);
-    
-    
+    Interface.setContent(treeTableView);
 }
 
   public TreeItem<Interface> makeTreeView(Interface NameInput,TreeItem item) {
