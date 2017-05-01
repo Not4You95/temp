@@ -32,8 +32,8 @@ public class Interface implements Serializable {
         this.type = type;
     }
     
-    public void SetPriority(String Priority){
-        this.setPriority(Priority);
+    public void SetPriority(priorityAndQulaityLevels Priority){
+        this.Priority=Priority;
     }
 
   
@@ -41,16 +41,14 @@ public class Interface implements Serializable {
     /**
      * @param Priority the Priority to set
      */
-    public void setPriority(String Priority) {
-        this.setPriority(Priority);
-    }
+   
 
     
 
     /**
      * @param Quality the Quality to set
      */
-    public void setQuality(String Quality) {
+    public void setQuality(priorityAndQulaityLevels Quality) {
         this.setQuality(Quality);
     }
 
@@ -97,16 +95,7 @@ public class Interface implements Serializable {
     }
 
    
-    public void setPriority(priorityAndQulaityLevels Priority) {
-        this.Priority = Priority;
-    }
-
-    /**
-     * @param Quality the Quality to set
-     */
-    public void setQuality(priorityAndQulaityLevels Quality) {
-        this.Quality = Quality;
-    }
+   
 
     /**
      * @return the Priority

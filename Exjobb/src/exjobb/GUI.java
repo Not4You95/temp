@@ -349,7 +349,7 @@ public void SetColor(){
     }
     
     
-    public void  OverViewSceen(String GlobalPriorityIput,String GlobalQualityInput,String info){
+    public void  OverViewSceen(priorityAndQulaityLevels GlobalPriorityIput,priorityAndQulaityLevels GlobalQualityInput,String info){
         Net = new GridPane();
         CenterHBox = new HBox();
         CentetVBox = new VBox();
@@ -360,6 +360,12 @@ public void SetColor(){
         text.setPrefColumnCount(10);
         text.setWrapText(true);
         
+        ////////////////////////////////////////////////////////////////
+        System.out.println("Priority: "+GlobalPriorityIput.toString());
+        System.out.println("Quality: "+GlobalQualityInput.toString());
+        System.out.println("Info: "+info);
+        ////////////////////////////////////////////////////////////////
+        
         Label globalPriotet = new Label("Global Priority:");
         Label globalQuality = new Label("Global Quality:");
         Net.setVgap(20);
@@ -369,8 +375,8 @@ public void SetColor(){
         Net.add(globalPriotet,0,2);
         Net.add(globalQuality, 0, 3);
         
-        Label temp1 = new Label(GlobalPriorityIput);
-        Label temp2 = new Label(GlobalQualityInput);
+        Label temp1 = new Label(GlobalPriorityIput.toString());
+        Label temp2 = new Label(GlobalQualityInput.toString());
         Net.add(temp1, 1, 2);
         Net.add(temp2, 1, 3);
         CentetVBox.getChildren().addAll(labelText,text);

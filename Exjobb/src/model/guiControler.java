@@ -37,7 +37,8 @@ public class guiControler {
     
     public void setDesierdTask(int DesierdTask){
         model.choiseOfTask(DesierdTask);
-        Overview();
+        upDateInterface();
+//        Overview();
     }
     
     public void ChoiceOfOrg(String name){
@@ -121,6 +122,10 @@ public class guiControler {
                   
               }
               
+              
+          }
+          for (int i = 0; i < Interface.size(); i++) {
+                System.out.println(Interface.get(i).toString());
           }
       }
     

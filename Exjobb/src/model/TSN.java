@@ -50,7 +50,7 @@ public TSN(){
     public void setName(String name) {
         this.name = name;
     }
-    public void SetPriorityForAllInterface(String priority){
+    public void SetPriorityForAllInterface(priorityAndQulaityLevels priority){
         for (int i = 0; i < ListOfInterface.size(); i++) {
             ListOfInterface.get(i).SetPriority(priority);
         }

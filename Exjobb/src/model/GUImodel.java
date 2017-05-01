@@ -98,14 +98,14 @@ public class GUImodel {
        return temp;
     }
     
-    public String GetOrgPriorityForAll(){
-      String temp=null;      
+    public priorityAndQulaityLevels GetOrgPriorityForAll(){
+      priorityAndQulaityLevels temp;      
        temp = OrgTemp.getPriotetForAllTSN();
        return temp;
     }
     
-    public String GetOrgQualityForAll(){
-         String temp=null;
+    public priorityAndQulaityLevels GetOrgQualityForAll(){
+         priorityAndQulaityLevels temp;
        
        temp = OrgTemp.getQualityForAllTSN();
        return temp;

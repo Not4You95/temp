@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Orginasation implements Serializable {
     private String name;
     private String info;
-    private String priotetForAllTSN=null;
-    private String QualityForAllTSN=null;
+    private priorityAndQulaityLevels priotetForAllTSN=null;
+    private priorityAndQulaityLevels QualityForAllTSN=null;
     private ArrayList<Task> Tasks;
    
     
@@ -53,7 +53,7 @@ public class Orginasation implements Serializable {
     /**
      * @return the priotetForAllTSN
      */
-    public String getPriotetForAllTSN() {
+    public priorityAndQulaityLevels getPriotetForAllTSN() {
         return priotetForAllTSN;
     }
     
@@ -68,7 +68,7 @@ public class Orginasation implements Serializable {
     /**
      * @param priotetForAllTSN the priotetForAllTSN to set
      */
-    public void setPriotetForAllTSN(String priotetForAllTSN) {
+    public void setPriotetForAllTSN(priorityAndQulaityLevels priotetForAllTSN) {
         this.priotetForAllTSN = priotetForAllTSN;
         for (int i = 0; i < getTasks().size(); i++) {
             getTasks().get(i).SetpriorityForAllTSN(priotetForAllTSN);
@@ -78,14 +78,14 @@ public class Orginasation implements Serializable {
     /**
      * @return the QualityForAllTSN
      */
-    public String getQualityForAllTSN() {
+    public priorityAndQulaityLevels getQualityForAllTSN() {
         return QualityForAllTSN;
     }
 
     /**
      * @param QualityForAllTSN the QualityForAllTSN to set
      */
-    public void setQualityForAllTSN(String QualityForAllTSN) {
+    public void setQualityForAllTSN(priorityAndQulaityLevels QualityForAllTSN) {
         this.QualityForAllTSN = QualityForAllTSN;
     }
 

@@ -16,7 +16,7 @@ public class Task implements Serializable{
      private ArrayList<TSN> noder;
      private String Name;
      private String info;
-     private String priorityFromPlan = "LOW";
+     private priorityAndQulaityLevels priorityFromPlan ;
      
      
      
@@ -29,7 +29,7 @@ public class Task implements Serializable{
          noder = new ArrayList<TSN>();
      }
      
-     public void SetpriorityForAllTSN(String priority){
+     public void SetpriorityForAllTSN(priorityAndQulaityLevels priority){
          for (int i = 0; i < getNoder().size(); i++) {
              getNoder().get(i).SetPriorityForAllInterface(priority);
          }
@@ -82,14 +82,14 @@ public class Task implements Serializable{
     /**
      * @return the priorityFromPlan
      */
-    public String getPriorityFromPlan() {
+    public priorityAndQulaityLevels getPriorityFromPlan() {
         return priorityFromPlan;
     }
 
     /**
      * @param priorityFromPlan the priorityFromPlan to set
      */
-    public void setPriorityFromPlan(String priorityFromPlan) {
+    public void setPriorityFromPlan(priorityAndQulaityLevels priorityFromPlan) {
         this.priorityFromPlan = priorityFromPlan;
     }
     
