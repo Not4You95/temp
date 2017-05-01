@@ -10,13 +10,15 @@ import java.util.Collection;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -28,7 +30,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -36,6 +41,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -65,32 +71,29 @@ public class GUI extends Application {
    private VBox ToplineVBox,CentetVBox;
    private MenuBar menulist;
    private GridPane Net;
-   private Tab Overview,Interface,Nodes;
+   private Tab Overview,Interface,Nodes,tabPlanScren;
+   private TabPane tabPane;
     @Override   
     
     public void start(Stage primaryStage) {
        
         Contolloer = new guiControler(this);        
         root = new BorderPane();
-        TabPane tabPane = new TabPane();
+        tabPane = new TabPane();
         border = new GridPane();
         TopLine = new HBox(20);
         TopLineLine2 = new HBox();
         ToplineVBox = new VBox();
-        Contolloer.UppdateScreen();
+        Contolloer.setScreen();
         Live.setSelected(false);
         Simulate.setSelected(false);
-        Overview = new Tab("Overwiew");
-        Interface = new Tab("Interface");
-        Nodes = new Tab("Nodes");
-        ///////////////////////////////////////////////////////////////////////
-        Overview.setClosable(false);
-        Interface.setClosable(false);
-        Nodes.setClosable(false);
        
-        Tab tabA = new Tab("Test");
-        tabPane.getTabs().addAll(Overview,Interface,Nodes);
-        root.setCenter(tabPane);
+        ///////////////////////////////////////////////////////////////////////
+        
+        
+        /////////////////////////////////////////////////////
+       
+        
            
         /////////////////////Menu ////////////////////////////////////////
        
@@ -115,15 +118,15 @@ public class GUI extends Application {
         
         TopLine.getChildren().addAll(choiceBox,menulist); 
         TopLineLine2.setSpacing(20);
-        TopLineLine2.getChildren().addAll(Task,ButtonOverview,ButtonInterface,ButtonNodes);
+        TopLineLine2.getChildren().addAll(Task);
        
                
                
        ToplineVBox.getChildren().addAll(TopLine);
        
        root.setTop(ToplineVBox);
-        
-        root.setLeft(ListOfTasks);
+       root.setCenter(tabPane);
+       
         SetColor();
         Scene scene = new Scene(root, 700, 300);
         
@@ -133,6 +136,20 @@ public class GUI extends Application {
     
     }
     
+   public void SetTabsForLiveMode(){
+        Overview = new Tab("Overwiew");
+        Interface = new Tab("Interface");
+        Nodes = new Tab("Nodes");
+        Overview.setClosable(false);
+        Interface.setClosable(false);
+        Nodes.setClosable(false);        
+        tabPane.getTabs().addAll(Overview,Interface,Nodes);
+      
+        root.setLeft(ListOfTasks);
+       
+        
+        
+   }
     
 public void ButtonTopLine(){
     ButtonOverview = new Button("Overview");
@@ -219,14 +236,7 @@ public void SetColor(){
     ButtonInterface.setStyle("-fx-background-color: #ccccb3");
     ButtonNodes.setStyle("-fx-background-color: #ccccb3");
 
-}
-
-    private  class TreeTableContol {
-
-        public TreeTableContol() {
-            System.out.println("hej");
-        }
-    }
+}    
 
  
 
@@ -259,14 +269,17 @@ public void SetColor(){
             if (event.getSource() == Plan) {
                 Live.setSelected(false);
                 Simulate.setSelected(false);
+                Contolloer.modeState(true, false,false);
             }
             else if (event.getSource() == Live) {
                 Plan.setSelected(false);
                 Simulate.setSelected(false);
+                Contolloer.modeState(false, true,false);
             }
             else if (event.getSource() == Simulate) {
                 Plan.setSelected(false);
                 Live.setSelected(false);
+                Contolloer.modeState(false, false,true);
             }
         }
     }
@@ -358,40 +371,142 @@ public void SetColor(){
         CentetVBox.getChildren().addAll(labelText,text);
         CenterHBox.setSpacing(20);
         CenterHBox.setAlignment(Pos.CENTER_LEFT);
-        CenterHBox.getChildren().addAll(CentetVBox,Net);
-        
+        CenterHBox.getChildren().addAll(CentetVBox,Net);        
         Overview.setContent(CenterHBox);
         
     }
 public void InterfaceScreen(){
-    TreeItem<String> Tree1 = new TreeItem<>("Tracking");
-    TreeItem<String> Tree2 = new TreeItem<>("Video");
-    TreeItem<String> Tree3 = new TreeItem<>("Massage");
     
-    TreeItem<String> rootInterface = new TreeItem<>("Root");
-     rootInterface.getChildren().addAll(Tree1,Tree2,Tree3);
      
-     TreeTableColumn<String,String> colum = new TreeTableColumn<>("Colum");
-     colum.setPrefWidth(150);
-     
-     
+    BorderPane scen = new BorderPane();
+      
+        
+        TreeItem<String> root,tracking,landViecal;
+        
+        root = new TreeItem<>();
+        root.setExpanded(true);
+      
+        
+        
+        tracking = makeBrach("Tracking", root);
+        makeBrach("BFT", tracking);
+        makeBrach("GPS", tracking);
+        makeBrach("Sat nav", tracking);
+        
+        landViecal = makeBrach("Land Veicals", root);
+        makeBrach("Car", landViecal);
+        makeBrach("Picup", landViecal);        
+        TreeView tree = new TreeView<>(root);
+        tree.setShowRoot(false);
+        tree.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> {System.out.println(newvalue);});
+            
+        
+        scen.setCenter(tree);     
     
-     //colum.setCellValueFactory((TableColumn.CellDataFeatures<String, String> p) -> (ObservableValue<T>) new ReadOnlyStringWrapper(p.getValue()));
-    ///  choiceBox.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> Contolloer.ChoiceOfOrg(newvalue));
-    TreeTableView<String> treeTableView = new TreeTableView<>(rootInterface);
-    treeTableView.getSelectionModel().selectedItemProperty().addListener((VBox,oldvalue,newvalue)-> new TreeTableContol());
-    treeTableView.getColumns().add(colum);
-    
-    Interface.setContent(treeTableView);
+    Interface.setContent(tree);
 }
 
-  public TreeItem<Interface> makeTreeView(Interface NameInput,TreeItem item) {
-      TreeItem<Interface> itemTemp = new TreeItem<>(NameInput);
-      itemTemp.setExpanded(true);
-      item.getChildren().add(itemTemp);            
-             
-      return itemTemp;
+  public TreeItem<String> makeBrach(String titel,TreeItem<String> parent){
+        TreeItem<String> item = new TreeItem<>(titel);
+        item.setExpanded(true);        
+        parent.getChildren().add(item);
+        return item;
+    }
+  
+  public void makeNewTabView(String Name){
+      Tab item = new Tab(Name);
+      tabPane.getTabs().add(item);
+      
+      
+    
+      
   }
-    
+  
+  public void screenForPlanMode(ObservableList<Task> Tasks){
+      tabPlanScren = new Tab("Misions");
+      
+      TableView<Task> table = new TableView<>();
+      ObservableList<String> ratingSample = FXCollections.observableArrayList("High","Medium","Low");
+        
+        
+        TableColumn<Task,String> nameColum = new TableColumn<>("Mision");
+        nameColum.setMinWidth(200);
+        nameColum.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+        
+         TableColumn<Task,String> priceColum = new TableColumn<>("Info");
+        priceColum.setMinWidth(200);
+        priceColum.setCellValueFactory(new PropertyValueFactory<>("info"));
+        
+         TableColumn<Task,String> QuantityColum = new TableColumn<>("Priority");
+        QuantityColum.setMinWidth(100);
+        QuantityColum.setCellValueFactory(new PropertyValueFactory<>("priorityFromPlan"));
+        
+        TableColumn<Task,String> SetPriority = new TableColumn<>("Priority");
+        SetPriority.setMinWidth(100);
+        SetPriority.setCellValueFactory(new PropertyValueFactory<>("priorityFromPlan"));
+       
+      
+     
+        SetPriority.setCellFactory(new Callback<TableColumn<Task, String>, TableCell<Task, String>>() {
+          @Override
+          public TableCell<Task, String> call(TableColumn<Task, String> param) {
+              TableCell<Task,String> cellTemp = new TableCell<Task, String>(){
+                  
+              public void updateItem( String item, boolean empty){
+                  ObservableList<String> ratingSample = FXCollections.observableArrayList("High","Medium","Low");
+                  
+                  if (item != null) {
+                       ChoiceBox coicebox = new ChoiceBox(ratingSample);
+                       coicebox.getSelectionModel().select(ratingSample);                       
+                       setGraphic(coicebox);
+                       //obejct.setPriorityFromPlan(item);
+                      
+                  }
+                  
+              }
+              
+              };
+              
+              
+              return cellTemp;
+          }
+      });        
+        
+       /*  rating.setCellFactory(new Callback<TableColumn<Music,Integer>,TableCell<Music,Integer>>(){        
+            @Override
+            public TableCell<Music, Integer> call(TableColumn<Music, Integer> param) {                
+                TableCell<Music, Integer> cell = new TableCell<Music, Integer>(){
+                    @Override
+                    public void updateItem(Integer item, boolean empty) {
+                        if(item!=null){
+                            
+                           ChoiceBox choice = new ChoiceBox(ratingSample);                                                      
+                           choice.getSelectionModel().select(ratingSample.indexOf(item));
+                           //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+                           setGraphic(choice);
+                        } 
+                    }
+                };                           
+                return cell;
+            }
+            
+        }); */ 
+        
+        table.setItems(Tasks);
+        table.getColumns().addAll(nameColum,priceColum,QuantityColum,SetPriority);
+        
+        VBox box = new VBox();
+        box.getChildren().add(table);
+        tabPlanScren.setContent(box);
+        tabPlanScren.setClosable(false); 
+        tabPane.getTabs().add(tabPlanScren);
+      
+      
+  }
 
+    
+    
 }
+  
+  

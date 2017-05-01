@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class Task implements Serializable{
      private ArrayList<TSN> noder;
      private String Name;
+     private String info;
+     private String priorityFromPlan = "LOW";
+     
      
      
      
@@ -57,6 +60,34 @@ public class Task implements Serializable{
      */
     public void setName(String Name) {
         this.Name = Name;
+    }
+
+    /**
+     * @return the info
+     */
+    public String getInfo() {
+        return info;
+    }
+
+    /**
+     * @param info the info to set
+     */
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    /**
+     * @return the priorityFromPlan
+     */
+    public String getPriorityFromPlan() {
+        return priorityFromPlan;
+    }
+
+    /**
+     * @param priorityFromPlan the priorityFromPlan to set
+     */
+    public void setPriorityFromPlan(String priorityFromPlan) {
+        this.priorityFromPlan = priorityFromPlan;
     }
      
      

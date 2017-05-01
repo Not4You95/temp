@@ -8,6 +8,8 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.*;
 
 /**
@@ -19,6 +21,7 @@ public class GUImodel {
     private ReadAndWriteToFile SaveAndRead;
     private File filename;
     private String OrgName;
+    
     
     
     
@@ -50,6 +53,17 @@ public class GUImodel {
         }
         
         return temp;
+    }
+    
+    public ObservableList<Task> getTaskList(){
+        ObservableList<Task> Tasks = FXCollections.observableArrayList();
+        for (int i = 0; i < Org.size(); i++) {
+            if (Org.get(i).getName() == OrgName) {
+                Tasks.addAll(Org.get(i).getTasks());
+            } 
+        }
+        return Tasks;
+        
     }
     
     
@@ -162,4 +176,6 @@ public class GUImodel {
        
         
     }
+      
+    
 }

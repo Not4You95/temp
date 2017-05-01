@@ -17,6 +17,9 @@ public class guiControler {
     private GUI gui;
     private GUImodel model;
     private ArrayList<String> tempTask;
+    private boolean Plan=true,Live=false,Simulate=false;
+    
+    
     public guiControler(GUI GUICLASS){
         gui = GUICLASS; 
         model = new GUImodel();
@@ -35,19 +38,18 @@ public class guiControler {
     public void ChoiceOfOrg(String name){
        ArrayList<String> temp = new ArrayList<String>();  
        model.SetOrgName(name);
-        System.out.println("Contoler name: "+name);
+       System.out.println("Contoler name: "+name);
        temp.addAll(model.GetTaskNames());
-       gui.UppdateListOfTask(temp);
-       gui.InterfaceScreen();
-       gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
+      // gui.UppdateListOfTask(temp);
+       UppdateScreen();
+       //gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
     }
     
     public void Overview(){
         gui.OverViewSceen(model.GetOrgPriorityForAll(), model.GetOrgQualityForAll(),model.GetOrgInfo());
     }
     
-    public void UppdateScreen(){
-           
+    public void setScreen(){
         gui.OrgMenu(model.GetOrgNames());
         gui.TaskMenu();
         gui.InterfaceMenu();
@@ -57,6 +59,20 @@ public class guiControler {
         gui.setListOfTask();
         tempTask.clear();
         gui.ModeMenu();
+    }
+    
+    public void UppdateScreen(){          
+        
+        
+        if (Plan) {
+            gui.screenForPlanMode(model.getTaskList());
+            
+        }else if(Live){
+            
+        }
+        else if(Simulate){
+            
+        }
         
        // tempTask.add("Test");
        // tempTask.add("Hello");
@@ -64,6 +80,16 @@ public class guiControler {
         
        
     }
-   
+    
+    public void choiseOfInterface(String temp){
+        gui.makeNewTabView(temp);
+    }
+    
+   public void modeState(boolean Plan,boolean Live,boolean Simulate){
+          this.Plan = Plan;
+          this.Live = Live;
+          this.Simulate = Simulate;
+          UppdateScreen();
+      }
     
 }
