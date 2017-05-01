@@ -12,10 +12,11 @@ import java.io.Serializable;
  * @author jonas
  */
 public class Interface implements Serializable {
-    private String Priority;
-    private String Quality;
+    private priorityAndQulaityLevels Priority;
+    private priorityAndQulaityLevels Quality;
     private boolean Pruducer;
     private boolean Consumer;
+    private InterfaceTypes type;
     private String Name;
     
     
@@ -24,42 +25,33 @@ public class Interface implements Serializable {
     
     
 }
-    public Interface(String name,String priority,String quality){
+    public Interface(String name,priorityAndQulaityLevels priority,priorityAndQulaityLevels quality,InterfaceTypes type){
         this.Name = name;
         this.Priority = priority;
         this.Quality = quality;
+        this.type = type;
     }
     
     public void SetPriority(String Priority){
         this.setPriority(Priority);
     }
 
-    /**
-     * @return the Priority
-     */
-    public String getPriority() {
-        return Priority;
-    }
+  
 
     /**
      * @param Priority the Priority to set
      */
     public void setPriority(String Priority) {
-        this.Priority = Priority;
+        this.setPriority(Priority);
     }
 
-    /**
-     * @return the Quality
-     */
-    public String getQuality() {
-        return Quality;
-    }
+    
 
     /**
      * @param Quality the Quality to set
      */
     public void setQuality(String Quality) {
-        this.Quality = Quality;
+        this.setQuality(Quality);
     }
 
     /**
@@ -102,6 +94,32 @@ public class Interface implements Serializable {
      */
     public void setName(String Name) {
         this.Name = Name;
+    }
+
+   
+    public void setPriority(priorityAndQulaityLevels Priority) {
+        this.Priority = Priority;
+    }
+
+    /**
+     * @param Quality the Quality to set
+     */
+    public void setQuality(priorityAndQulaityLevels Quality) {
+        this.Quality = Quality;
+    }
+
+    /**
+     * @return the Priority
+     */
+    public priorityAndQulaityLevels getPriority() {
+        return Priority;
+    }
+
+    /**
+     * @return the Quality
+     */
+    public priorityAndQulaityLevels getQuality() {
+        return Quality;
     }
 
     

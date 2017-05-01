@@ -25,6 +25,9 @@ public class Task implements Serializable{
          this.Name = name;
          noder = new ArrayList<TSN>();
      }
+     public Task(){
+         noder = new ArrayList<TSN>();
+     }
      
      public void SetpriorityForAllTSN(String priority){
          for (int i = 0; i < getNoder().size(); i++) {
@@ -89,6 +92,10 @@ public class Task implements Serializable{
     public void setPriorityFromPlan(String priorityFromPlan) {
         this.priorityFromPlan = priorityFromPlan;
     }
+    
+    
+    
+    
      
      
 }

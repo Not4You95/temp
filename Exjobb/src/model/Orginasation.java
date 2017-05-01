@@ -119,4 +119,15 @@ public class Orginasation implements Serializable {
         this.Tasks.addAll(Tasks);
     }
     
+    public Task getTask(int name){
+        Task temp = new Task();
+       /* for (int i = 0; i <Tasks.size(); i++) {
+         if (Tasks.get(i).getName() == name) {
+                temp = Tasks.get(i);                              
+            }    
+        }*/
+       temp = Tasks.get(name);
+        return temp;
+    }
+    
 }

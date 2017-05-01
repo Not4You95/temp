@@ -21,6 +21,8 @@ public class GUImodel {
     private ReadAndWriteToFile SaveAndRead;
     private File filename;
     private String OrgName;
+    private Orginasation OrgTemp;
+    private Task taskTemp;
     
     
     
@@ -40,7 +42,15 @@ public class GUImodel {
     }
     
     public void SetOrgName(String name){
-        OrgName = name;        
+        OrgName = name;
+        
+        for (int i = 0; i < Org.size(); i++) {
+            if (Org.get(i).getName() == OrgName) {
+                OrgTemp = Org.get(i);
+                              
+            } 
+        }
+        
     }
     
     
@@ -89,25 +99,32 @@ public class GUImodel {
     }
     
     public String GetOrgPriorityForAll(){
-      String temp=null;
-       for (int i = 0; i < Org.size(); i++) {
-            if (Org.get(i).getName() == OrgName) {
-                temp = Org.get(i).getPriotetForAllTSN();                              
-            } 
-        }
+      String temp=null;      
+       temp = OrgTemp.getPriotetForAllTSN();
        return temp;
     }
     
     public String GetOrgQualityForAll(){
          String temp=null;
-       for (int i = 0; i < Org.size(); i++) {
-            if (Org.get(i).getName() == OrgName) {
-                temp = Org.get(i).getQualityForAllTSN();
-                              
-            } 
-        }
+       
+       temp = OrgTemp.getQualityForAllTSN();
        return temp;
     }
+    
+    public ArrayList<TSN> getInterfaceTypes(){
+       ArrayList<TSN> temp = new ArrayList<>();
+        temp.addAll(taskTemp.getNoder());
+        return temp;
+        
+    }
+    
+    public void choiseOfTask(int name){
+        taskTemp = OrgTemp.getTask(name);
+        System.out.println("Task name: "+taskTemp.getName());
+    }
+    
+    
+    
     
       public void test() {
           ArrayList<TSN> temp = new ArrayList<TSN>();
@@ -118,15 +135,44 @@ public class GUImodel {
         Orginasation Gotland = new Orginasation();
         Orginasation Blidö = new Orginasation();
         Orginasation Öland = new Orginasation();
+       /* BFT – Blue Force Tracking
+COP – Common Operational Picture
+Voice – Streamed Voice
+ISR – Intelligence, surveillance and reconnaissance
+Video – Streamed Video
+Msg – Command and control messages
+Control – System Management*/
+       
+       Interface in1 = new Interface("BFT", priorityAndQulaityLevels.High, priorityAndQulaityLevels.High,InterfaceTypes.Tracking);
+       Interface in2 = new Interface("Voice", priorityAndQulaityLevels.Low, priorityAndQulaityLevels.Low, InterfaceTypes.Message);
+       Interface in3 = new Interface("ISR", priorityAndQulaityLevels.Medium, priorityAndQulaityLevels.Medium, InterfaceTypes.Message);
+       Interface in4  =new Interface("Video", priorityAndQulaityLevels.Medium, priorityAndQulaityLevels.Low, InterfaceTypes.Video);
+       Interface in5 = new Interface("Contol", priorityAndQulaityLevels.High, priorityAndQulaityLevels.High, InterfaceTypes.Message);
+       
+       ArrayList<Interface> listInter = new ArrayList<>();
+       listInter.add(in1);
+       listInter.add(in2);
+       listInter.add(in3);
+       listInter.add(in4);
+       listInter.add(in5);
+
         
         TSN one = new TSN("UAV ISR Global");
+        one.addInterfaceArray(listInter);
         TSN two = new TSN("Datafusion M");
+        two.addInterfaceArray(listInter);
         TSN three = new TSN("Datafusion S");
+        three.addInterfaceArray(listInter);
         TSN FOUR = new TSN("Troups");
+        FOUR.addInterfaceArray(listInter);
         TSN five = new TSN("Military Hospital");
+        five.addInterfaceArray(listInter);
         TSN six = new TSN("BMS/Soldier");
+        six.addInterfaceArray(listInter);
         TSN seven = new TSN("Deployed c2");
+        seven.addInterfaceArray(listInter);
         TSN eight = new TSN("UAV Local");
+        seven.addInterfaceArray(listInter);
         //System.out.println(one.getName());
         
         System.out.println("-----------------------------------------------");
@@ -148,20 +194,20 @@ public class GUImodel {
         Gotland.setTasks(taskList);
         Gotland.setName("Gotland");
         Gotland.setInfo("Defend Gtoland from Ryssland");
-        Gotland.setPriotetForAllTSN("HIGE");
-        Gotland.setQualityForAllTSN("Medium");
+       // Gotland.setPriotetForAllTSN("HIGE");
+       // Gotland.setQualityForAllTSN("Medium");
         //////////////////////////////////////////////////////
         Öland.setTasks(taskList);
         Öland.setName("Öland");
         Öland.setInfo("Defend Öland from Denmark");
-        Öland.setPriotetForAllTSN("LOW");
-        Öland.setQualityForAllTSN("LOW");
+       // Öland.setPriotetForAllTSN("LOW");
+       // Öland.setQualityForAllTSN("LOW");
         //////////////////////////////////////////////////////
         Blidö.setTasks(taskList);
         Blidö.setName("Blidö");
         Blidö.setInfo("Defend from who?");
-        Blidö.setPriotetForAllTSN("HIGE");
-        Blidö.setQualityForAllTSN("HIGE");
+       // Blidö.setPriotetForAllTSN("HIGE");
+       // Blidö.setQualityForAllTSN("HIGE");
         ///////////////////////////////////////////////////////////////////////
         Org.add(Öland);
         Org.add(Gotland);

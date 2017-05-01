@@ -84,7 +84,7 @@ public class GUI extends Application {
         TopLine = new HBox(20);
         TopLineLine2 = new HBox();
         ToplineVBox = new VBox();
-        Contolloer.setScreen();
+        Contolloer.setScreen();        
         Live.setSelected(false);
         Simulate.setSelected(false);
        
@@ -137,16 +137,15 @@ public class GUI extends Application {
     }
     
    public void SetTabsForLiveMode(){
+       tabPane.getTabs().clear();
         Overview = new Tab("Overwiew");
         Interface = new Tab("Interface");
         Nodes = new Tab("Nodes");
         Overview.setClosable(false);
         Interface.setClosable(false);
         Nodes.setClosable(false);        
-        tabPane.getTabs().addAll(Overview,Interface,Nodes);
-      
-        root.setLeft(ListOfTasks);
-       
+        tabPane.getTabs().addAll(Overview,Interface,Nodes);      
+        root.setLeft(ListOfTasks);   
         
         
    }
@@ -218,7 +217,7 @@ public void OrgMenu(ArrayList<String> TasknName){
 public void setListOfTask(){
     ListOfTasks = new ListView<String>();
     ListOfTasks.setPrefSize(100, 280);
-    ListOfTasks.getSelectionModel().selectedIndexProperty().addListener((v,oldvalue,newvalue)-> System.out.println(newvalue));
+    ListOfTasks.getSelectionModel().selectedIndexProperty().addListener((v,oldvalue,newvalue)-> Contolloer.setDesierdTask((int) newvalue));
     
 }
 public void UppdateListOfTask(ArrayList<String> task){
@@ -267,21 +266,27 @@ public void SetColor(){
         @Override
         public void handle(ActionEvent event) {
             if (event.getSource() == Plan) {
-                Live.setSelected(false);
-                Simulate.setSelected(false);
+               // Live.setSelected(false);
+                //Simulate.setSelected(false);
                 Contolloer.modeState(true, false,false);
             }
             else if (event.getSource() == Live) {
-                Plan.setSelected(false);
-                Simulate.setSelected(false);
+               // Plan.setSelected(false);
+               // Simulate.setSelected(false);
                 Contolloer.modeState(false, true,false);
             }
             else if (event.getSource() == Simulate) {
-                Plan.setSelected(false);
-                Live.setSelected(false);
+               // Plan.setSelected(false);
+               // Live.setSelected(false);
                 Contolloer.modeState(false, false,true);
             }
         }
+    }
+    
+    public void upDateModeState(boolean Plan,boolean Live,boolean Simulate){
+        this.Plan.setSelected(Plan);
+        this.Live.setSelected(Live);
+        this.Simulate.setSelected(Simulate);
     }
     private class MenuP_2_PChoice implements EventHandler<ActionEvent>{
 
@@ -375,27 +380,24 @@ public void SetColor(){
         Overview.setContent(CenterHBox);
         
     }
-public void InterfaceScreen(){
-    
+public void InterfaceScreen(){  
      
-    BorderPane scen = new BorderPane();
-      
-        
-        TreeItem<String> root,tracking,landViecal;
+    BorderPane scen = new BorderPane();    
+        TreeItem<String> root,tracking,message,Video;
         
         root = new TreeItem<>();
         root.setExpanded(true);
       
-        
-        
-        tracking = makeBrach("Tracking", root);
-        makeBrach("BFT", tracking);
+        tracking = makeBrach(InterfaceTypes.Tracking.toString(), root);
+       /* makeBrach("BFT", tracking);
         makeBrach("GPS", tracking);
-        makeBrach("Sat nav", tracking);
+        makeBrach("Sat nav", tracking);*/
         
-        landViecal = makeBrach("Land Veicals", root);
-        makeBrach("Car", landViecal);
-        makeBrach("Picup", landViecal);        
+        message = makeBrach(InterfaceTypes.Message.toString(), root);
+        Video  = makeBrach(InterfaceTypes.Video.toString(), root);
+       /* makeBrach("Car", landViecal);
+        makeBrach("Picup", landViecal); */
+        
         TreeView tree = new TreeView<>(root);
         tree.setShowRoot(false);
         tree.getSelectionModel().selectedItemProperty().addListener((v,oldvalue,newvalue) -> {System.out.println(newvalue);});
@@ -458,8 +460,8 @@ public void InterfaceScreen(){
                   
                   if (item != null) {
                        ChoiceBox coicebox = new ChoiceBox(ratingSample);
-                       coicebox.getSelectionModel().select(ratingSample);                       
-                       setGraphic(coicebox);
+                       coicebox.getSelectionModel().select(ratingSample.indexOf(item));                       
+                       setGraphic(coicebox);                       
                        //obejct.setPriorityFromPlan(item);
                       
                   }
@@ -501,6 +503,7 @@ public void InterfaceScreen(){
         tabPlanScren.setContent(box);
         tabPlanScren.setClosable(false); 
         tabPane.getTabs().add(tabPlanScren);
+      //  table.addEventHandler(ActionEvent.ACTION, );
       
       
   }
